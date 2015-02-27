@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Boilerplate in yOSONJS</title>
+        <script >
+            var yOSON = {
+                module: "default",
+                controller: "index",
+                action: "index"
+            };
+        </script>
+    </head>
+    <style type="text/css">
+    
+    ul{
+      padding: 0;
+      margin:0;          
+    }
+    ul li{
+        width: 12%;
+        display: inline-block;
+        border: 1px solid;
+        margin: 0.7%;
+        padding: 0.5%;
+    }
+    ul li input{
+        float: right;
+        margin: 0 15px;
+    }    
+    
+    </style>
+    <body>
+
+    	
+    	<input id="fileupload" type="file" name="files[]" multiple >
+        <input id="subir" type="button" value="Subir"/>
+        <div class="content">
+            <ul class="wrapper_preview_cache"></ul>
+            <ul class="wrapper_preview_recently_uploaded"></ul> 
+        </div>
+
+
+
+        <script id="tplPreviewRecentlyUploaded" type="text/template">
+            <li class="uploaded">
+                <p>{{=file.name}}</p>
+                <img src="{{=img.src}}" width="{{=img.width}}" height="{{=img.height}}">    
+                <input type="button" value="{{=button.value}}"> 
+            </li>
+        </script>
+
+
+
+        <script id="tplPreviewCache" type="text/template">
+
+        <li class="cache">
+            <p>{{=file.name}}</p>
+            <img src="{{=img.src}}" width="{{=img.width}}" height="{{=img.height}}">    
+            <input type="button" value="{{=button.value}}"> 
+        </li>
+
+        </script>
+
+        <script src="js/bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+        <script src="js/yosonjs/dist/yoson.js" type="text/javascript"></script>
+        <script src="js/modules.js" type="text/javascript"></script>
+        <script src="js/schema.js" type="text/javascript"></script>
+        <script src="js/loader.js" type="text/javascript"></script>
+    </body>
+</html>

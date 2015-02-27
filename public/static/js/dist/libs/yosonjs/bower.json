@@ -1,0 +1,38 @@
+{
+  "name": "yosonjs",
+  "version": "0.0.14-alpha",
+  "homepage": "https://github.com/yosonjs/yosonjs",
+  "authors": [
+    "andru255@gmail.com"
+  ],
+  "description": "A lightweight sandbox library in JavaScript for manage modular scripts",
+  "main": "build/yoson-min.js",
+  "keywords": [
+    "yosonjs",
+    "modular"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "config",
+    "docs",
+    "examples",
+    "report",
+    "src",
+    "tasks",
+    "test",
+    "bower_components",
+    ".gitignore",
+    ".travis.yml",
+    "DEVELOPMENT.md",
+    "Gruntfile.js",
+    "LICENSE.md",
+    "README.md",
+    "RequireConfig.js",
+    "bower.json",
+    "changelog",
+    "files.md",
+    "package.json",
+    ".jshintrc"
+  ]
+}

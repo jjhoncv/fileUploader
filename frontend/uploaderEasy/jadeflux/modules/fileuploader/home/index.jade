@@ -1,0 +1,21 @@
+extends ../../../layout/layout.jade
+//- home/index
+
+block content
+    input#fileupload(type='file', name='files[]', multiple='')
+    input#subir(type='button', value='Subir')
+    .content
+      ul.wrapper_preview_cache
+      ul.wrapper_preview_recently_uploaded
+    script#tplPreviewRecentlyUploaded(type='text/template').
+      <li class="uploaded">
+      <p>{{=file.name}}</p>
+      <img src="{{=img.src}}" width="{{=img.width}}" height="{{=img.height}}">
+      <input type="button" value="{{=button.value}}">
+      </li>
+    script#tplPreviewCache(type='text/template').
+      <li class="cache">
+      <p>{{=file.name}}</p>
+      <img src="{{=img.src}}" width="{{=img.width}}" height="{{=img.height}}">
+      <input type="button" value="{{=button.value}}">
+      </li>
