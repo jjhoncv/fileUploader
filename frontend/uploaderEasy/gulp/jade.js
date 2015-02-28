@@ -2,7 +2,7 @@
 var locals = {},
 	time = new Date().getTime();
 
-locals.baseUrl = 'http://localhost:3000/';
+locals.baseUrl = 'http://local.uploader.com/';
 
 locals.staticUrl = locals.baseUrl;
 locals.elementUrl = locals.baseUrl;

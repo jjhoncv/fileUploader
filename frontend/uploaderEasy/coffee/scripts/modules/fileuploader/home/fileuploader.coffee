@@ -9,7 +9,7 @@ yOSON.AppCore.addModule "fileuploader", (Sb) ->
 	st =
 		inputFileUpload 		: "#fileupload"
 		btnUpload 				: "#subir"
-		urlServerPHP 			: "../static/server/php/"
+		urlServerPHP 			: "../../../server/"
 		content 				: ".content"
 		
 		

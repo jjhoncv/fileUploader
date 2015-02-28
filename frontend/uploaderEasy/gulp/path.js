@@ -21,9 +21,12 @@ Path.src.static = {
 	main : Path.src.folder + 'static/'
 };
 
+
 Path.src.static.images = Path.src.static.main + 'img/';
 Path.src.static.fonts = Path.src.static.main + 'fonts/';
 Path.src.static.icons = Path.src.static.main + 'icons/';
+Path.src.server = Path.src.folder + 'server/';
+
 
 Path.src.coffee = Path.src.folder + 'coffee/';
 Path.src.jade = Path.src.folder + 'jadeflux/';
@@ -39,6 +42,7 @@ Path.dest.css = Path.dest.folder + 'css/';
 Path.dest.fonts = Path.dest.folder + 'fonts/';
 Path.dest.images = Path.dest.folder + 'img/';
 Path.dest.js = Path.dest.folder + 'js/';
+Path.dest.server = Path.dest.folder + 'server/';
 
 Path.backend = {
 	base: '../../src/pagoefectivomomo3/PM.WebApp/'
@@ -119,7 +123,6 @@ Path.jade = {
 };
 
 
-
 /* Stylus Path */
 Path.stylus = {
 	default : {
@@ -134,8 +137,6 @@ Path.stylus = {
 	}
 };
 
-
-
 /* Coffee Path */
 Path.coffee = {
 	default : {
@@ -148,8 +149,6 @@ Path.coffee = {
 		dest: Path.dest.js + 'source/'
 	}
 };
-
-
 
 /* Javascript Path */
 Path.javascript = {
@@ -170,8 +169,6 @@ Path.javascript = {
 };
 
 
-
-
 /* Copy Path */
 Path.copy = {
 	js: {
@@ -184,6 +181,12 @@ Path.copy = {
 
 		}
 	},
+	server : {
+		src: [
+			Path.src.server + '**'
+		],
+		dest: Path.dest.server
+	},
 	fonts: {
 		src: [
 			Path.src.static.fonts + '**/**/*.*'
@@ -193,6 +196,7 @@ Path.copy = {
 	images: {
 		source: {
 			src: [
+				Path.src.static.images + 'files/',
 				Path.src.static.images + '**/**/*.*',
 				'!' + Path.src.static.images + '_**/**/*.*',
 				'!' + Path.src.static.images + '**/_**/*.*',
@@ -264,6 +268,9 @@ Path.clean = {
 	},
 	fonts: {
 		default: [Path.dest.fonts]
+	},
+	server: {
+		default: [Path.dest.server]
 	},
 	images: {
 		default: [Path.dest.images]

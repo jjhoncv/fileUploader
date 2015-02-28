@@ -34,6 +34,11 @@ function Task(gulp, path, options, plugins, settings) {
         .pipe(plugins.rimraf(options.clean.general.plugin));
     });
 
+    gulp.task('clean:server', function () {
+        return gulp.src(path.clean.server.default, options.clean.general.src)
+        .pipe(plugins.rimraf(options.clean.general.plugin));       
+    });
+
     gulp.task('clean:fonts', function () {
         return gulp.src(path.clean.fonts.default, options.clean.general.src)
         .pipe(plugins.rimraf(options.clean.general.plugin));
@@ -49,7 +54,7 @@ function Task(gulp, path, options, plugins, settings) {
     });
 
     gulp.task('clean', function (cb) {
-        plugins.runSequence(['clean:html', 'clean:styles', 'clean:images', 'clean:fonts', 'clean:js'], cb);
+        plugins.runSequence(['clean:html', 'clean:styles', 'clean:images', 'clean:fonts', 'clean:js', 'clean:server'], cb);
     });
 
 }

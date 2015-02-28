@@ -56,16 +56,16 @@ a:active,a:hover{outline:0}
 #numericKeypad ul li.clean,#numericKeypad ul li:nth-child(3n){margin:0 0 2px}
 #numericKeypad ul li.clean a,#numericKeypad ul li:nth-child(3n) a{background-image:url()}
 #numericKeypad ul li a,#numericKeypad ul li a img{display:block}
-#numericKeypad ul li a#number_01{background-image:url(../../../img/main_sprite.png?v=362b67a);background-position:-27px 0;width:27px;height:27px}
-#numericKeypad ul li a#number_02{background-image:url(../../../img/main_sprite.png?v=362b67a);background-position:0 -27px;width:27px;height:27px}
-#numericKeypad ul li a#number_03{background-image:url(../../../img/main_sprite.png?v=362b67a);background-position:-27px -27px;width:27px;height:27px}
-#numericKeypad ul li a#number_04{background-image:url(../../../img/main_sprite.png?v=362b67a);background-position:-54px 0;width:27px;height:27px}
-#numericKeypad ul li a#number_05{background-image:url(../../../img/main_sprite.png?v=362b67a);background-position:-54px -27px;width:27px;height:27px}
-#numericKeypad ul li a#number_06{background-image:url(../../../img/main_sprite.png?v=362b67a);background-position:0 -54px;width:27px;height:27px}
-#numericKeypad ul li a#number_07{background-image:url(../../../img/main_sprite.png?v=362b67a);background-position:-27px -54px;width:27px;height:27px}
-#numericKeypad ul li a#number_08{background-image:url(../../../img/main_sprite.png?v=362b67a);background-position:-54px -54px;width:27px;height:27px}
-#numericKeypad ul li a#number_09{background-image:url(../../../img/main_sprite.png?v=362b67a);background-position:-81px 0;width:27px;height:27px}
-#numericKeypad ul li a#number_00{background-image:url(../../../img/main_sprite.png?v=362b67a);background-position:0 0;width:27px;height:27px}
+#numericKeypad ul li a#number_01{background-image:url(../../../img/main_sprite.png?v=e5578c4);background-position:-27px 0;width:27px;height:27px}
+#numericKeypad ul li a#number_02{background-image:url(../../../img/main_sprite.png?v=e5578c4);background-position:0 -27px;width:27px;height:27px}
+#numericKeypad ul li a#number_03{background-image:url(../../../img/main_sprite.png?v=e5578c4);background-position:-27px -27px;width:27px;height:27px}
+#numericKeypad ul li a#number_04{background-image:url(../../../img/main_sprite.png?v=e5578c4);background-position:-54px 0;width:27px;height:27px}
+#numericKeypad ul li a#number_05{background-image:url(../../../img/main_sprite.png?v=e5578c4);background-position:-54px -27px;width:27px;height:27px}
+#numericKeypad ul li a#number_06{background-image:url(../../../img/main_sprite.png?v=e5578c4);background-position:0 -54px;width:27px;height:27px}
+#numericKeypad ul li a#number_07{background-image:url(../../../img/main_sprite.png?v=e5578c4);background-position:-27px -54px;width:27px;height:27px}
+#numericKeypad ul li a#number_08{background-image:url(../../../img/main_sprite.png?v=e5578c4);background-position:-54px -54px;width:27px;height:27px}
+#numericKeypad ul li a#number_09{background-image:url(../../../img/main_sprite.png?v=e5578c4);background-position:-81px 0;width:27px;height:27px}
+#numericKeypad ul li a#number_00{background-image:url(../../../img/main_sprite.png?v=e5578c4);background-position:0 0;width:27px;height:27px}
 #safetyPin{font-family:geog-mdit,arial,sans-serif;display:inline-block;vertical-align:top;max-width:245px}
 #safetyPin h5{margin-top:-4px;margin-bottom:15px}
 #safetyPin>div{display:inline-block;position:relative;margin:0 0 10px}

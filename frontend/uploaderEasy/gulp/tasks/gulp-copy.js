@@ -22,6 +22,11 @@ function Task(gulp, path, options, plugins, settings) {
             .pipe(gulp.dest(path.copy.fonts.dest));
     });
 
+    gulp.task('copy:server', function () {
+        gulp.src(path.copy.server.src, { base : path.src.server })
+            .pipe(gulp.dest(path.copy.server.dest));
+    });
+
     gulp.task('copy:img', function () {
         gulp.src(path.copy.images.source.src, { base : path.src.static.images })
             .pipe(plugins.if(settings.config.prod, plugins.imagemin(options.imagemin.general)))
@@ -35,7 +40,7 @@ function Task(gulp, path, options, plugins, settings) {
     });
 
     gulp.task('copy', function (cb) {
-        plugins.runSequence('copy:js', 'copy:img', 'copy:fonts', cb);
+        plugins.runSequence('copy:js', 'copy:img', 'copy:fonts', 'copy:server' , cb);
     });
 }
 

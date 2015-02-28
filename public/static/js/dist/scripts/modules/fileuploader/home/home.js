@@ -10,7 +10,7 @@ yOSON.AppCore.addModule("fileuploader", function(Sb) {
   st = {
     inputFileUpload: "#fileupload",
     btnUpload: "#subir",
-    urlServerPHP: "../static/server/php/",
+    urlServerPHP: "../../../server/",
     content: ".content",
     tplPreviewCache: "#tplPreviewCache",
     wrapperPreviewCache: ".wrapper_preview_cache",

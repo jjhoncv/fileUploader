@@ -41,11 +41,22 @@ class UploadHandler
     protected $image_objects = array();
 
     function __construct($options = null, $initialize = true, $error_messages = null) {
+        
+        $file = new stdClass();
+        $file->rute = 'http://' . $_SERVER['HTTP_HOST'] . '/static/img/files/';
+        $file->directory = $_SERVER['DOCUMENT_ROOT'] . '/img/files/';
+  
+        //echo $this->get_full_url().'/';
+        //echo $rute_file;
+        //echo 'echo $this->get_full_url();'.$this->get_full_url();
+        //echo 'dirname($this->get_server_var('SCRIPT_FILENAME'))'.dirname($this->get_server_var('SCRIPT_FILENAME'));
+        //exit;
+
         $this->response = array();
         $this->options = array(
             'script_url' => $this->get_full_url().'/',
-            'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/files/',
-            'upload_url' => $this->get_full_url().'/files/',
+            'upload_dir' => $file->directory,
+            'upload_url' => $file->rute,
             'user_dirs' => false,
             'mkdir_mode' => 0755,
             'param_name' => 'files',
