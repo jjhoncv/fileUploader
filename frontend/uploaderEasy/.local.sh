@@ -4,7 +4,7 @@ HOME_PATH="~/";
 RESOURCES_PATH="resources/";
 CURRENT_PATH=${PWD#*/};
 VH_PATH="vhost/"
-FILE_NAME="local.flux.pe";
+FILE_NAME="local.uploader.com";
 USER=${username-`whoami`};
 
 # Ampliando el maximo de archivos a observar
@@ -18,7 +18,7 @@ sudo cp "/$CURRENT_PATH/$RESOURCES_PATH$VH_PATH$FILE_NAME" /etc/apache2/sites-av
 
 sudo chmod 777 "/etc/apache2/sites-available/$FILE_NAME";
 
-exit;
+#exit;
 
 # cambiando el user por default
 grep -rl "frontend" "/etc/apache2/sites-available/$FILE_NAME" | xargs sed -i "s/frontend/$USER/g";

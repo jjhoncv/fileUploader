@@ -44,13 +44,7 @@ class UploadHandler
         
         $file = new stdClass();
         $file->rute = 'http://' . $_SERVER['HTTP_HOST'] . '/static/img/files/';
-        $file->directory = $_SERVER['DOCUMENT_ROOT'] . '/img/files/';
-  
-        //echo $this->get_full_url().'/';
-        //echo $rute_file;
-        //echo 'echo $this->get_full_url();'.$this->get_full_url();
-        //echo 'dirname($this->get_server_var('SCRIPT_FILENAME'))'.dirname($this->get_server_var('SCRIPT_FILENAME'));
-        //exit;
+        $file->directory = $_SERVER['DOCUMENT_ROOT'] . '/img/files/';      
 
         $this->response = array();
         $this->options = array(
@@ -58,7 +52,7 @@ class UploadHandler
             'upload_dir' => $file->directory,
             'upload_url' => $file->rute,
             'user_dirs' => false,
-            'mkdir_mode' => 0755,
+            'mkdir_mode' => 0777,
             'param_name' => 'files',
             // Set the following option to 'POST', if your server does not support
             // DELETE requests. This is a parameter sent to the client:
@@ -548,7 +542,11 @@ class UploadHandler
         if (!empty($version)) {
             $version_dir = $this->get_upload_path(null, $version);
             if (!is_dir($version_dir)) {
+                $old = umask(0);                
+                $old = umask(0);
                 mkdir($version_dir, $this->options['mkdir_mode'], true);
+                umask($old);
+                umask($old);
             }
             $new_file_path = $version_dir.'/'.$file_name;
         } else {
@@ -1064,8 +1062,10 @@ class UploadHandler
         if ($this->validate($uploaded_file, $file, $error, $index)) {
             $this->handle_form_data($file, $index);
             $upload_dir = $this->get_upload_path();
-            if (!is_dir($upload_dir)) {
+            if (!is_dir($upload_dir)) {                
+                $old = umask(0);
                 mkdir($upload_dir, $this->options['mkdir_mode'], true);
+                umask($old);
             }
             $file_path = $this->get_upload_path($file->name);
             $append_file = $content_range && is_file($file_path) &&

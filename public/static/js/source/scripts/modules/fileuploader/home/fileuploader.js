@@ -14,7 +14,7 @@ yOSON.AppCore.addModule("fileuploader", function(Sb) {
     content: ".content",
     tplPreviewCache: "#tplPreviewCache",
     wrapperPreviewCache: ".wrapper_preview_cache",
-    itemContentPreview: ".cache",
+    itemClassPreviewCache: ".cache",
     btnCancelPreviewCache: "input",
     imgPreviewCache: {
       maxHeight: 50,
@@ -22,8 +22,8 @@ yOSON.AppCore.addModule("fileuploader", function(Sb) {
     },
     tplPreviewRecentlyUploaded: "#tplPreviewRecentlyUploaded",
     wrapperPreviewRecentlyUploaded: ".wrapper_preview_recently_uploaded",
-    itemContentPreviewRecentlyUploaded: ".uploaded",
-    btnCancelPreviewRecentlyUploaded: "input",
+    itemClassPreviewRecentlyUploaded: ".uploaded",
+    btnDeletePreviewRecentlyUploaded: "input",
     imgPreviewRecentlyUploaded: {
       maxHeight: 50,
       noRevoke: true
@@ -55,20 +55,20 @@ yOSON.AppCore.addModule("fileuploader", function(Sb) {
     dom.btnUpload.on('click', events.uploadFiles);
   };
   events = {
-    cancelPreviewFile: function(e) {
+    cancelPreviewFileCache: function(e) {
       var ele, index;
       ele = $(e.target);
       index = ele.parents('li').index();
       ele.parents('li').remove();
       uploadFilesPending.splice(index, 1);
     },
-    deletePreviewFileServer: function(e, data) {
+    deletePreviewFileRecentlyUploaded: function(e) {
       var ele, index;
       ele = $(e.target);
       index = ele.parents('li').index();
       ele.parents('li').remove();
       $.blueimp.fileupload.prototype.options.destroy.call(that, e, $.extend({
-        context: ele.closest('.server')
+        context: ele.closest(st.itemClassPreviewRecentlyUploaded)
       }, ele.data()));
     },
     uploadFiles: function(e) {
@@ -80,34 +80,37 @@ yOSON.AppCore.addModule("fileuploader", function(Sb) {
     uploadFileServer: function(file) {
       file.submit();
     },
-    previewFilesUpload: function(e, data) {
+    previewFilesCache: function(e, data) {
       that = this;
-      functions.previewFileUploadReset();
+      functions.previewFileCacheReset();
       uploadFilesPending.push(data);
-      $.each(data.files, functions.previewFileUpload);
+      $.each(data.files, functions.previewFileCache);
     },
-    previewFileUpload: function(index, file) {
+    previewFileCache: function(index, file) {
       loadImage(file, function(img) {
         var layout;
-        layout = functions.getMergeTpl(img, file);
+        layout = functions.getMergeTplPreviewCache(img, file);
         dom.btnCancelPreviewCache = $(st.btnCancelPreviewCache, layout);
-        dom.btnCancelPreviewCache.on('click', events.cancelPreviewFile);
+        dom.btnCancelPreviewCache.on('click', events.cancelPreviewFileCache);
       }, st.imgPreviewCache);
     },
-    previewFilesServer: function(e, data) {
-      functions.previewFileServerReset();
-      $.each(data.files, functions.previewFileServer);
+    previewFilesRecentlyUpload: function(e, data) {
+      functions.previewFilesRecentlyUploadReset();
+      $.each(data.files, functions.previewFileRecentlyUpload);
     },
-    previewFileServer: function(index, file) {
+    previewFileRecentlyUpload: function(index, file) {
       loadImage(file, function(img) {
-        functions.getMergeTpl(img, file);
+        var layout;
+        layout = functions.getMergeTplPreviewFileRecentlyUpload(img, file);
+        dom.btnDeletePreviewRecentlyUploaded = $(st.btnDeletePreviewRecentlyUploaded, layout);
+        dom.btnDeletePreviewRecentlyUploaded.on('click', events.deletePreviewFileRecentlyUploaded);
       }, st.imgPreviewRecentlyUploaded);
     },
-    previewFileUploadReset: function() {
-      $("ul li.server").remove();
+    previewFileCacheReset: function() {
+      $("ul li").filter(st.itemClassPreviewRecentlyUploaded).remove();
       $('h3').text('Preview');
     },
-    getMergeTpl: function(img, file) {
+    getMergeTplPreviewFileRecentlyUpload: function(img, file) {
       var fielsMerge, layout, tmpMerge;
       fielsMerge = {
         file: file,
@@ -117,42 +120,37 @@ yOSON.AppCore.addModule("fileuploader", function(Sb) {
           height: $(img).attr("height")
         },
         button: {
-          type: 'button',
-          value: 'Cancel'
+          dataUrl: st.urlServerPHP + '?file=' + file.name
+        }
+      };
+      tmpMerge = _.template(dom.tplPreviewRecentlyUploaded.html(), fielsMerge);
+      layout = dom.wrapperPreviewRecentlyUploaded.append(tmpMerge);
+      return layout;
+    },
+    getMergeTplPreviewCache: function(img, file) {
+      var fielsMerge, layout, tmpMerge;
+      fielsMerge = {
+        file: file,
+        img: {
+          src: $(img).attr('src'),
+          width: $(img).attr("width"),
+          height: $(img).attr("height")
         }
       };
       tmpMerge = _.template(dom.tplPreviewCache.html(), fielsMerge);
       layout = dom.wrapperPreviewCache.append(tmpMerge);
       return layout;
     },
-    previewFileServerReset: function() {
-      $("ul li").filter(st.itemContentPreview).remove();
+    previewFilesRecentlyUploadReset: function() {
+      $("ul li").filter(st.itemClassPreviewCache).remove();
       $('h3').text('Uploaders');
     },
-    insertFile: function(file, settingsButton) {
-      loadImage(file, (function(img) {
-        var btn;
-        btn = $('<input>', settingsButton);
-        $('<li></li>', {
-          "class": file["class"],
-          html: '<p>' + file.name + '</p>'
-        }).append(img).append(btn).appendTo($('ul'));
-      }), {
-        maxHeight: 50
-      });
-    },
-    elementAddFileUpload: function(index, file) {
-      $("<p/>").text(file.name).appendTo(document.body);
-    },
     SettingsFileupload: function() {
-      var ul;
-      ul = $('<ul></ul>').appendTo(document.body);
-      $('<h3>').insertAfter($("#subir"));
       options = {
         url: st.urlServerPHP,
         dataType: 'json',
-        add: functions.previewFilesUpload,
-        done: functions.previewFilesServer
+        add: functions.previewFilesCache,
+        done: functions.previewFilesRecentlyUpload
       };
     }
   };

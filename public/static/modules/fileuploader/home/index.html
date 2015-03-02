@@ -22,7 +22,7 @@
     <meta name="robots" content="index,follow">
     <meta name="keywords" content="nuevas keywords">
     <meta property="og:description" content="Nueva descripcion">
-    <meta property="og:image" content="http://local.uploader.com/img/logo_mimodulo.png?1425079939802">
+    <meta property="og:image" content="http://local.uploader.com/img/logo_mimodulo.png?1425271793167">
     <meta property="og:image:height" content="60">
     <meta property="og:image:type" content="image/jpg">
     <meta property="og:image:width" content="90">
@@ -30,9 +30,9 @@
     <meta property="og:title" content="title, nuevo titulo | mimodulo.pe">
     <meta property="og:type" content="website">
     <meta property="og:url" content="http://local.uploader.com/">
-    <link href="http://local.uploader.com/css/modules/all_modules/fonts.css?1425079939802" media="all" rel="stylesheet" type="text/css">
-    <link href="http://local.uploader.com/css/modules/all_modules/all.css?1425079939802" media="all" rel="stylesheet" type="text/css">
-    <link href="http://local.uploader.com/css/layouts/main/layout.css?1425079939802" media="all" rel="stylesheet" type="text/css">
+    <link href="http://local.uploader.com/css/modules/all_modules/fonts.css?1425271793167" media="all" rel="stylesheet" type="text/css">
+    <link href="http://local.uploader.com/css/modules/all_modules/all.css?1425271793167" media="all" rel="stylesheet" type="text/css">
+    <link href="http://local.uploader.com/css/layouts/main/layout.css?1425271793167" media="all" rel="stylesheet" type="text/css">
     <!--
     *Para algo como:
     
@@ -45,13 +45,13 @@
     <link href="static/css/modules/mimodulo/Account.css?20140918" media="screen" rel="stylesheet" type="text/css"><script type="text/javascript">
     
     -->
-    <link href="http://local.uploader.com/img/favicon.ico?1425079939802" rel="icon" type="image/vnd.microsoft.icon">
-    <link href="http://local.uploader.com/img/favicon.ico?1425079939802" rel="shortcut icon" type="image/vnd.microsoft.icon">
-    <link href="http://local.uploader.com/img/favicon.ico?1425079939802" rel="shortcut icon" type="image/x-icon">
-    <link href="http://local.uploader.com/img/logo_mimodulo.png?1425079939802" rel="image_src" type="image/jpeg"><!--[if lte IE 9]>
-    <link href="http://local.uploader.com/css/modules/all/ie.css?1425079939802" media="all" rel="stylesheet" type="text/css">
-    <script src="http://local.uploader.com/js/dist/libs/selectivizr/selectivizr.js?1425079939802"></script>
-    <script src="http://local.uploader.com/js/dist/libs/html5shiv/dist/html5shiv.js?1425079939802"></script><![endif]-->
+    <link href="http://local.uploader.com/img/favicon.ico?1425271793167" rel="icon" type="image/vnd.microsoft.icon">
+    <link href="http://local.uploader.com/img/favicon.ico?1425271793167" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    <link href="http://local.uploader.com/img/favicon.ico?1425271793167" rel="shortcut icon" type="image/x-icon">
+    <link href="http://local.uploader.com/img/logo_mimodulo.png?1425271793167" rel="image_src" type="image/jpeg"><!--[if lte IE 9]>
+    <link href="http://local.uploader.com/css/modules/all/ie.css?1425271793167" media="all" rel="stylesheet" type="text/css">
+    <script src="http://local.uploader.com/js/dist/libs/selectivizr/selectivizr.js?1425271793167"></script>
+    <script src="http://local.uploader.com/js/dist/libs/html5shiv/dist/html5shiv.js?1425271793167"></script><![endif]-->
     <script type="text/javascript">
       var yOSON = {
           "module"     : "nombre_del_modulo",
@@ -60,7 +60,7 @@
           "baseHost"   : "http://local.uploader.com/",
           "statHost"   : "http://local.uploader.com/",
           "eHost"      : "http://local.uploader.com/",
-          "statVers"   : "?1425079939802",
+          "statVers"   : "?1425271793167",
           "AppCore"    : {},
           "AppSandbox" : {},
           "tmp"        : {},
@@ -94,6 +94,7 @@
     <!-- -- -- -- -- -- -- -- -- -- -- fin del header -- -- -- -- --  -- -- -- -- ---->
     <input id="fileupload" type="file" name="files[]" multiple="">
     <input id="subir" type="button" value="Subir">
+    <h3></h3>
     <div class="content">
       <ul class="wrapper_preview_cache"></ul>
       <ul class="wrapper_preview_recently_uploaded"></ul>
@@ -102,14 +103,14 @@
       <li class="uploaded">
       <p>{{=file.name}}</p>
       <img src="{{=img.src}}" width="{{=img.width}}" height="{{=img.height}}">
-      <input type="button" value="{{=button.value}}">
+      <input type="button" value="Delete" data-type="DELETE" data-url="{{=button.dataUrl}}">
       </li>
     </script>
     <script id="tplPreviewCache" type="text/template">
       <li class="cache">
       <p>{{=file.name}}</p>
       <img src="{{=img.src}}" width="{{=img.width}}" height="{{=img.height}}">
-      <input type="button" value="{{=button.value}}">
+      <input type="button" value="Cancelar">
       </li>
     </script>
     <!-- -- -- -- -- -- -- -- -- -- -- inicio del footer -- -- -- -- -- -- -- -- -- ---->
@@ -121,9 +122,9 @@
         </div>
       </div>
     </footer>
-    <script src="http://local.uploader.com/js/dist/libs/jquery/dist/jquery.min.js?1425079939802" type="text/javascript"></script>
-    <script src="http://local.uploader.com/js/dist/libs/yosonjs/dist/yoson.js?1425079939802" type="text/javascript"></script>
-    <script src="http://local.uploader.com/js/dist/libs/yosonjs_utils/yosonjs_utils.js?1425079939802" type="text/javascript"></script>
+    <script src="http://local.uploader.com/js/dist/libs/jquery/dist/jquery.min.js?1425271793167" type="text/javascript"></script>
+    <script src="http://local.uploader.com/js/dist/libs/yosonjs/dist/yoson.js?1425271793167" type="text/javascript"></script>
+    <script src="http://local.uploader.com/js/dist/libs/yosonjs_utils/yosonjs_utils.js?1425271793167" type="text/javascript"></script>
     <!--script(src="#{page.static_url}js/dist/scripts/modules/all/all.js#{page.version}", type="text/javascript")-->
     <!--script(src="#{page.static_url}js/dist/scripts/modules/mimodulo/Account/Account.js#{page.version}", type="text/javascript")-->
     <!--script(src="#{page.static_url}js/dist/libs/yosonjs_utils/modules.js#{page.version}", type="text/javascript")-->

@@ -15,7 +15,7 @@ yOSON.AppCore.addModule "fileuploader", (Sb) ->
 		
 		tplPreviewCache 		: "#tplPreviewCache"
 		wrapperPreviewCache 	: ".wrapper_preview_cache"
-		itemContentPreview 		: ".cache"
+		itemClassPreviewCache 	: ".cache"
 		btnCancelPreviewCache	: "input"
 		imgPreviewCache :
 			maxHeight : 50
@@ -25,8 +25,8 @@ yOSON.AppCore.addModule "fileuploader", (Sb) ->
 
 		tplPreviewRecentlyUploaded 			: "#tplPreviewRecentlyUploaded"
 		wrapperPreviewRecentlyUploaded 		: ".wrapper_preview_recently_uploaded"
-		itemContentPreviewRecentlyUploaded 	: ".uploaded"
-		btnCancelPreviewRecentlyUploaded 	: "input"
+		itemClassPreviewRecentlyUploaded 	: ".uploaded"
+		btnDeletePreviewRecentlyUploaded 	: "input"
 		imgPreviewRecentlyUploaded :
 			maxHeight : 50
 			noRevoke  :true			
@@ -38,6 +38,7 @@ yOSON.AppCore.addModule "fileuploader", (Sb) ->
 	options = {}	
 	dom = {}
 	catchDom = ->
+		
 		dom.inputFileUpload = $(st.inputFileUpload)
 		dom.content = $(st.content)
 		dom.btnUpload = $(st.btnUpload)       
@@ -46,8 +47,7 @@ yOSON.AppCore.addModule "fileuploader", (Sb) ->
 		dom.wrapperPreviewCache = $(st.wrapperPreviewCache, st.content)
 
 		dom.tplPreviewRecentlyUploaded = $(st.tplPreviewRecentlyUploaded)
-		dom.wrapperPreviewRecentlyUploaded = $(st.wrapperPreviewRecentlyUploaded)
-		
+		dom.wrapperPreviewRecentlyUploaded = $(st.wrapperPreviewRecentlyUploaded)		
 		return  
 
 	afterCatchDom = ->
@@ -66,22 +66,23 @@ yOSON.AppCore.addModule "fileuploader", (Sb) ->
 		dom.btnUpload.on('click', events.uploadFiles)
 		return
 	events = 
-		cancelPreviewFile : (e)->			
+		cancelPreviewFileCache : (e)->			
+			
 			ele = $(e.target)
 			index = ele.parents('li').index()
 			ele.parents('li').remove()			
 			uploadFilesPending.splice(index, 1)			
 			return
 
-		deletePreviewFileServer : (e, data)->			
+		deletePreviewFileRecentlyUploaded : (e)->			
+			
 			ele = $(e.target)
 			index = ele.parents('li').index()
 			ele.parents('li').remove()
 
 			$.blueimp.fileupload.prototype.options.destroy.call(that, e, $.extend({
-				context: ele.closest('.server')
-            }, ele.data()));
-			
+				context: ele.closest(st.itemClassPreviewRecentlyUploaded)
+            }, ele.data()));			
 			return
 
 		uploadFiles : (e)->						
@@ -95,93 +96,93 @@ yOSON.AppCore.addModule "fileuploader", (Sb) ->
 			file.submit()
 			return
 
-		previewFilesUpload : (e, data)->	
+		previewFilesCache : (e, data)->	
+			
 			that = this
-			functions.previewFileUploadReset()
+			functions.previewFileCacheReset()
 			uploadFilesPending.push(data)
-			$.each( data.files, functions.previewFileUpload)			
+			$.each( data.files, functions.previewFileCache)			
 			return
 
-		previewFileUpload : (index, file)->						
+		previewFileCache : (index, file)->						
+			
 			loadImage(file, (img)->
-				layout = functions.getMergeTpl(img, file)				
+				
+				layout = functions.getMergeTplPreviewCache(img, file)				
 				dom.btnCancelPreviewCache = $(st.btnCancelPreviewCache, layout)				
-				dom.btnCancelPreviewCache.on('click', events.cancelPreviewFile)
+				dom.btnCancelPreviewCache.on('click', events.cancelPreviewFileCache)
+
 				return
 			, st.imgPreviewCache)
 			return	
 
-		previewFilesServer : (e, data)->	
-			functions.previewFileServerReset()
-			$.each( data.files, functions.previewFileServer)
+		previewFilesRecentlyUpload : (e, data)->	
+			
+			functions.previewFilesRecentlyUploadReset()
+			$.each( data.files, functions.previewFileRecentlyUpload)
 			return
 
-		previewFileServer : (index, file)->
+		previewFileRecentlyUpload : (index, file)->
 			
 			loadImage(file, (img)->
-				functions.getMergeTpl(img, file)
+				
+				layout = functions.getMergeTplPreviewFileRecentlyUpload(img, file)				
+				dom.btnDeletePreviewRecentlyUploaded = $(st.btnDeletePreviewRecentlyUploaded, layout)				
+				dom.btnDeletePreviewRecentlyUploaded.on('click', events.deletePreviewFileRecentlyUploaded)
+
 				return
-			, st.imgPreviewRecentlyUploaded)
-			
+			, st.imgPreviewRecentlyUploaded)			
 			return
 
-		previewFileUploadReset : ()->
-			$("ul li.server").remove()
+		previewFileCacheReset : ()->
+			
+			$("ul li").filter(st.itemClassPreviewRecentlyUploaded).remove()
 			$('h3').text('Preview')
 			return
 
-		getMergeTpl : (img, file)->
+		getMergeTplPreviewFileRecentlyUpload : (img, file)->
+			
 			fielsMerge = 
 				file : file
 				img  : 
-					src : $(img).attr('src')
-					width : $(img).attr("width")
-					height : $(img).attr("height")
-				button : 
-					type : 'button'
-					value: 'Cancel'
+					src 	: $(img).attr('src')
+					width 	: $(img).attr("width")
+					height 	: $(img).attr("height")
+				button : 					
+					dataUrl : st.urlServerPHP + '?file=' + file.name
 
+			tmpMerge = _.template(dom.tplPreviewRecentlyUploaded.html() , fielsMerge)
+			layout = dom.wrapperPreviewRecentlyUploaded.append(tmpMerge)
+			
+			layout					
+
+		getMergeTplPreviewCache : (img, file)->
+			
+			fielsMerge = 
+				file : file
+				img  : 
+					src 	: $(img).attr('src')
+					width 	: $(img).attr("width")
+					height 	: $(img).attr("height")
+				
 			tmpMerge = _.template(dom.tplPreviewCache.html() , fielsMerge)
 			layout = dom.wrapperPreviewCache.append(tmpMerge)
 			
 			layout		
 
-		previewFileServerReset : ()->
-			$("ul li").filter(st.itemContentPreview).remove()			
+		previewFilesRecentlyUploadReset : ()->
+			
+			$("ul li").filter(st.itemClassPreviewCache).remove()			
 			$('h3').text('Uploaders')
 			return
-
 		
-
-		insertFile : (file, settingsButton)->
+		SettingsFileupload : ->
 			
-			loadImage( file, ((img) ->
-
-				btn = $('<input>',settingsButton)
-
-				$('<li></li>',{
-					class: file.class
-					html : '<p>'+file.name+'</p>'
-				}).append(img).append(btn).appendTo($('ul'))
-				return
-			), 				
-				maxHeight: 50
-			)	
-			return			
-
-		elementAddFileUpload : (index, file)->
-			$("<p/>").text(file.name).appendTo(document.body);
-			return
-
-		SettingsFileupload : ->			
-			ul = $('<ul></ul>').appendTo(document.body)
-			$('<h3>').insertAfter($("#subir"))
-
 			options = 
 				url : st.urlServerPHP
 				dataType: 'json'				
-				add : functions.previewFilesUpload					
-				done : functions.previewFilesServer					 
+				add : functions.previewFilesCache					
+				done: functions.previewFilesRecentlyUpload
 			return
 
 	initialize = (oP) ->

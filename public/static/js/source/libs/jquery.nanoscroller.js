@@ -1,6 +1,6 @@
 (function($, window, document) {
   "use strict";
-  var BROWSER_IS_IE7, BROWSER_SCROLLBAR_WIDTH, DOMSCROLL, DOWN, DRAG, ENTER, KEYDOWN, KEYUP, MOUSEDOWN, MOUSEENTER, MOUSEMOVE, MOUSEUP, MOUSEWHEEL, NanoScroll, PANEDOWN, RESIZE, SCROLL, SCROLLBAR, TOUCHMOVE, UP, WHEEL, cAF, defaults, getBrowserScrollbarWidth, hasTransform, isFFWithBuggyScrollbar, rAF, transform, _elementStyle, _prefixStyle, _vendor;
+  var BROWSER_IS_IE7, BROWSER_SCROLLBAR_WIDTH, DOMSCROLL, DOWN, DRAG, ENTER, KEYDOWN, KEYUP, MOUSEDOWN, MOUSEENTER, MOUSEMOVE, MOUSEUP, MOUSEWHEEL, NanoScroll, PANEDOWN, RESIZE, SCROLL, SCROLLBAR, TOUCHMOVE, UP, WHEEL, _elementStyle, _prefixStyle, _vendor, cAF, defaults, getBrowserScrollbarWidth, hasTransform, isFFWithBuggyScrollbar, rAF, transform;
   defaults = {
 
     /**
@@ -280,9 +280,9 @@
   cAF = window.cancelAnimationFrame;
   _elementStyle = document.createElement('div').style;
   _vendor = (function() {
-    var i, transform, vendor, vendors, _i, _len;
+    var i, j, len, transform, vendor, vendors;
     vendors = ['t', 'webkitT', 'MozT', 'msT', 'OT'];
-    for (i = _i = 0, _len = vendors.length; _i < _len; i = ++_i) {
+    for (i = j = 0, len = vendors.length; j < len; i = ++j) {
       vendor = vendors[i];
       transform = vendors[i] + 'ransform';
       if (transform in _elementStyle) {
@@ -345,9 +345,9 @@
     @constructor
    */
   NanoScroll = (function() {
-    function NanoScroll(_at_el, _at_options) {
-      this.el = _at_el;
-      this.options = _at_options;
+    function NanoScroll(el, options1) {
+      this.el = el;
+      this.options = options1;
       BROWSER_SCROLLBAR_WIDTH || (BROWSER_SCROLLBAR_WIDTH = getBrowserScrollbarWidth());
       this.$el = $(this.el);
       this.doc = $(this.options.documentContext || document);
@@ -574,12 +574,12 @@
         })(this),
         enter: (function(_this) {
           return function(e) {
-            var _ref;
+            var ref;
             if (!_this.isBeingDragged) {
               return;
             }
             if ((e.buttons || e.which) !== 1) {
-              return (_ref = _this.events)[UP].apply(_ref, arguments);
+              return (ref = _this.events)[UP].apply(ref, arguments);
             }
           };
         })(this)
