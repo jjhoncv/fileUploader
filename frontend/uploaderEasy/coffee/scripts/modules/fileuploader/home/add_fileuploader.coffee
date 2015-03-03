@@ -13,7 +13,7 @@ yOSON.AppCore.addModule "add_fileuploader", (Sb) ->
 		btnCancel	: "input"		
 		imgSettings :
 			maxHeight : 50
-			noRevoke  :true
+			noRevoke  : true
 
 	st = {}
 

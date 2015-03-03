@@ -6,6 +6,8 @@ yOSON.AppSchema.modules = {
         "actions": {
           "index": function() {
             yOSON.AppCore.runModule("fileuploader");
+            yOSON.AppCore.runModule("preview_fileuploader");
+            yOSON.AppCore.runModule("manager_fileuploader");
           },
           "by_default": function() {}
         },
