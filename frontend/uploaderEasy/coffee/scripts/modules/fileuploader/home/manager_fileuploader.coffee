@@ -16,12 +16,16 @@ yOSON.AppCore.addModule "manager_fileuploader", (Sb) ->
 
 	suscribeEvents = () ->
 		fileupload.on("fileuploadadd", events.fileuploadadd)
+		#fileupload.on("fileuploaddone", events.fileuploaddone)
 		return
 
 	events = 
 		
 		fileuploadadd : (e, data) ->			
-			Sb.trigger("setPreview", $.extend({type:'add'}, data))
+			Sb.trigger("setPreview", $.extend({type:'cache'}, data))
+			return
+		fileuploaddone : (e, data)->
+			Sb.trigger("setPreview", $.extend({type:'upload'}, data))
 			return
 	
 	fn = 
