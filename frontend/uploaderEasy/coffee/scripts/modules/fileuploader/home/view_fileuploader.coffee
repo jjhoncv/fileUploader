@@ -23,30 +23,37 @@ yOSON.AppCore.addModule "view_fileuploader", (Sb) ->
 			evaluate: /\{\{([\s\S]+?)\}\}/g
 			interpolate: /\{\{=([\s\S]+?)\}\}/g
 		fn.getTemplatesInit()	
-		return	
-
-	events = 
-		
-		cancel : (e)->
-			ele = $(e.target)
-			index = ele.parents(st.itemClass).index()
-			ele.parents(st.itemClass).remove()		
-			return
+		return		
 
 	fn = 
 		
-		cathDomTemplate : (content)->			
+		###catchDomTemplate : (content)->			
 			dom.btnCancel = $(st.btnCancel, content)
 			window.btnCancel = dom.btnCancel						
-			return		
+			return		###
 
-		suscribeEventsTemplate : ()->
+		###suscribeEventsTemplate : ()->
 			dom.btnCancel.on('click', events.cancel)
-			return
+
+			log "st",st
+
+			dom.btnCancel.on('click', {content:st.itemClass} , (e)->
+				Sb.trigger("cancelFile",e)
+				return
+				)
+			return###
 
 		setPreview : (data)->
+			# data : de archivos del servidor
+			# data : de archivos de cache
+			
+			# para archivos de cache
+			if (data.typeTpl == 'cache')
+				filesPending.push(data)
+
+
 			data.files[0].id = index++
-			fn.renderTemplateInit(data.files[0], data.type)
+			fn.renderTemplateInit(data.files[0], data.typeTpl)
 			return
 
 		getTemplatesInit : ()->
@@ -57,7 +64,9 @@ yOSON.AppCore.addModule "view_fileuploader", (Sb) ->
 			return
 
 		setTemplate : (tpl)->
+			templates.setTemplate(tpl)
 			st = templates[tpl]
+			#log "st",st
 			catchDom(st)
 			return
 
@@ -65,23 +74,36 @@ yOSON.AppCore.addModule "view_fileuploader", (Sb) ->
 			
 			fn.setTemplate(typeTpl)			
 
-			layout = fn.mergeData(file, typeTpl)
+			#log "file",file
+
+			parentId = fn.mergeData(file, typeTpl)
+			
+			templates.catchDom(parentId)
+			templates.suscribeEvents()
+
+			#fn.catchDomTemplate(layout)
+			#fn.suscribeEventsTemplate()
+			
 			fn.loadImageAsync(file)
-			fn.cathDomTemplate(layout)
-			fn.suscribeEventsTemplate()
 			return
 
 		mergeData : (file, typeTpl)->
+			#log "dom.tplPreview",dom.tplPreview.html()
+
 			tmpMerge = _.template(dom.tplPreview.html() , {file : file})
 			layout = dom.wrapper.append(tmpMerge)
 			layout
 			
-		loadImageAsync : (file)->
+		loadImageAsync : (file)->			
 			loadImage(file, (img)->								
 				fn.mergeImg(img, file)
 				return
 			, st.imgSettings
 			)
+			return
+
+		getFilesPending: (callbackDealFilesPending)->
+			callbackDealFilesPending.call(this, filesPending)
 			return
 
 		mergeImg : (img, file)->			
@@ -92,6 +114,7 @@ yOSON.AppCore.addModule "view_fileuploader", (Sb) ->
 		st = $.extend({}, defaults, opts)
 		afterCatchDom()
 		Sb.events(["setPreview"], fn.setPreview, this)
+		Sb.events(["getFilesPending"], fn.getFilesPending, this)
 		return
 
 	return {

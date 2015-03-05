@@ -5,6 +5,7 @@ Module description
 @author 
 ###
 
+#datos de configuracion del tpl
 yOSON.AppCore.addModule "templates_fileuploader", (Sb) ->
 	defaults = 
 		cache :
@@ -12,7 +13,7 @@ yOSON.AppCore.addModule "templates_fileuploader", (Sb) ->
 			wrapper 	: ".wrapper_preview_cache"
 			itemClass 	: ".cache"
 			contentImg  : ".img"
-			btnCancel	: "input"		
+			btnCancel	: "input"
 			imgSettings :
 				maxHeight : 50
 				noRevoke  :true
@@ -30,11 +31,42 @@ yOSON.AppCore.addModule "templates_fileuploader", (Sb) ->
 
 	dom = {}
 
+	cathDom = (parent)->		
+		
+		st.tpl : 
+			cache : ->
+				Sb.trigger("catchDomCache", parent)
+				return
+			upload : ->
+				Sb.trigger("catchDomUpload", parent)
+				return	
+
+
+		return
+
+	suscribeEvents = ()->
+		st.tpl :
+			cache : ->
+				Sb.trigger("suscribeEventsCache", parent)
+				return
+
+			upload : ->
+				Sb.trigger("suscribeEventsUpload", parent)
+				return
+				
+		return
+
 	afterCathDom = (st)->
 		dom = st
 		return
-	
+
+
+
 	fn = 
+		setTemplate : (tpl)->
+			st.tpl = tpl
+			return
+
 		getTemplates: (callbackDealDom)->
 			callbackDealDom.call(this, dom)
 			return

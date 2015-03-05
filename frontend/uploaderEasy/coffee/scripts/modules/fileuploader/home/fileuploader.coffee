@@ -11,7 +11,8 @@ yOSON.AppCore.addModule "fileuploader", (Sb) ->
 		content 		: ".myfiles"
 		fileuploader : 
 			url 	 : "../../../server/"
-			dataType : 'json'    
+			dataType : 'json'
+			autoUpload: false  
 	
 	st = {}
 
@@ -44,3 +45,22 @@ yOSON.AppCore.addModule "fileuploader", (Sb) ->
 	}
 , [ 'js/dist/libs/jquery-ui/ui/widget.js',		
 	'js/dist/libs/blueimp-file-upload/js/jquery.fileupload.js']
+
+
+	# 1   Creo el objeto fileupload
+	# 2   Seteo que accion hacer
+	#
+	# 2.1 fn ADD :
+    #      a- Obtener el HTML de mi tpl cache
+    #      b- Obtener los files pendientes de cache
+    #      c- Merge de data Cache con HTML
+    #      d- Add funcionalidad
+    #
+    # 2.2 fn Upload:
+    #      a- Obtener el HTML de mi tpl Upload
+    #      b- Obtener los files pendientes a subir
+    #      c- Merge la data con el HTML
+    #      d- Add funcionalidad
+
+    # Separar funcionalidad de CANCEL y de DELETE del boton, asi como SUBMIT
+

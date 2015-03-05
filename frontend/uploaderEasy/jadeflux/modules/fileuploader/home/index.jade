@@ -12,7 +12,7 @@ block content
 	script#tplPreviewRecentlyUploaded(type='text/template').
 		<li class="uploaded">
 		<p>{{=file.name}}</p>
-		<img src="{{=img.src}}" width="{{=img.width}}" height="{{=img.height}}">
+		<div class="img"></div>		
 		<input type="button" value="Delete" data-type="DELETE" data-url="{{=button.dataUrl}}">
 		</li>
 	script#tplPreviewCache(type='text/template').
